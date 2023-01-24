@@ -83,7 +83,17 @@ add_action( 'plugins_loaded', 'dlocal_init', 0 );
                     'type'    => 'checkbox',
                     'description' => __( 'This is the test mode of gateway.', 'd-local' ),
                     'default'  => 'no',
+                  ),                
+                  'callbackurl' => array(
+                    'title'    => __( 'Callback URL', 'callbackurl' ),
+                    'type'    => 'text',
+                    'desc_tip' => __( 'Callback URL', 'callbackurl' ),
                   )
+                  'notification' => array(
+                    'title'    => __( 'Notification URL', 'notificationurl' ),
+                    'type'    => 'text',
+                    'desc_tip' => __( 'Notification URL', 'callbackurl' ),
+                  )                 
                 );    
               }
 
@@ -108,9 +118,9 @@ add_action( 'plugins_loaded', 'dlocal_init', 0 );
                 $payer_addres_state = $customer_order->billing_state;
                 $payer_addres_zip_code = $customer_order->billing_postcode;
                 $get_the_user_ip = $_SERVER['REMOTE_ADDR'];
-                $notification_url = "http://merchant.com/notifications";
-                $callback_url = "http:/google.com";
-                $url = "google.com";
+                $notification_url = $this->notification;
+                $callback_url = $this->callbackurl;
+                
                 $body = '{
                     "amount": ' . $customer_order->order_total .',
                     "currency": "' . $currency .'",
